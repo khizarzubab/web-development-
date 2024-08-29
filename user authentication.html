@@ -1,0 +1,198 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Authentication</title>
+    <link rel="stylesheet" href="style.css">
+<style>
+
+
+/* Global Styles */
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
+}
+
+.container {
+    max-width: 400px;
+    margin: 40px auto;
+    padding: 20px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Login and Register Containers */
+
+.login-container, .register-container {
+    display: none;
+}
+
+.login-container.active, .register-container.active {
+    display: block;
+}
+
+/* Form Styles */
+
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+input[type="text"], input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+button[type="button"] {
+    width: 100%;
+    padding: 10px;
+    background-color: #4CAF50;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button[type="button"]:hover {
+    background-color: #3e8e41;
+}
+
+/* Link Styles */
+
+a {
+    text-decoration: none;
+    color: #4CAF50;
+}
+
+a:hover {
+    color: #3e8e41;
+}
+
+/* Error Message Styles */
+
+.error-message {
+    color: #red;
+    margin-bottom: 20px;
+}
+
+
+
+</style>
+
+
+
+</head>
+<body>
+    <div class="container">
+        <div class="login-container">
+            <h2>Login</h2>
+            <form id="login-form">
+                <input type="text" id="username" placeholder="Username">
+                <input type="password" id="password" placeholder="Password">
+                <button id="login-btn">Login</button>
+            </form>
+            <p>Don't have an account? <a href="#" id="register-link">Register</a></p>
+        </div>
+        <div class="register-container" style="display: none;">
+            <h2>Register</h2>
+            <form id="register-form">
+                <input type="text" id="username" placeholder="Username">
+                <input type="password" id="password" placeholder="Password">
+                <button id="register-btn">Register</button>
+            </form>
+            <p>Already have an account? <a href="#" id="login-link">Login</a></p>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+
+<script>
+
+
+
+// Get the forms and buttons
+const loginForm = document.getElementById('login-form');
+const registerForm = document.getElementById('register-form');
+const loginBtn = document.getElementById('login-btn');
+const registerBtn = document.getElementById('register-btn');
+const loginLink = document.getElementById('login-link');
+const registerLink = document.getElementById('register-link');
+
+// Add event listeners
+loginBtn.addEventListener('click', login);
+registerBtn.addEventListener('click', register);
+loginLink.addEventListener('click', showLoginForm);
+registerLink.addEventListener('click', showRegisterForm);
+
+// Function to show login form
+function showLoginForm() {
+    registerForm.classList.remove('active');
+    loginForm.classList.add('active');
+}
+
+// Function to show register form
+function showRegisterForm() {
+    loginForm.classList.remove('active');
+    registerForm.classList.add('active');
+}
+
+// Function to handle login
+function login(e) {
+    e.preventDefault();
+    const username = document.getElementById('username').value;
+    const password = document.getElementById('password').value;
+    
+    // Check if username and password are correct
+    if (username === 'admin' && password === 'password') {
+        // Redirect to dashboard
+        window.location.href = 'dashboard.html';
+    } else {
+        // Show error message
+        const errorMessage = document.createElement('p');
+        errorMessage.textContent = 'Invalid username or password';
+        errorMessage.classList.add('error-message');
+        loginForm.appendChild(errorMessage);
+    }
+}
+
+// Function to handle register
+function register(e) {
+    e.preventDefault();
+    const username = document.getElementById('username').value;
+    const password = document.getElementById('password').value;
+    
+    // Check if username is available
+    if (username !== 'admin') {
+        // Register user
+        alert('User registered successfully');
+        // Redirect to login
+        window.location.href = 'login.html';
+    } else {
+        // Show error message
+        const errorMessage = document.createElement('p');
+        errorMessage.textContent = 'Username already taken';
+        errorMessage.classList.add('error-message');
+        registerForm.appendChild(errorMessage);
+    }
+}
+
+
+
+</script>
+
+</body>
+</html>
